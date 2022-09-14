@@ -84,9 +84,11 @@ chmod 777 scripts/setup.sh
 ./scripts/setup.sh
 ```
 
-### 4. wait for data collection
+### 4. Wait for data collection
 
-### 5. query your dataset
+The VM will take a minute or two to setup. Then comments will start to flow into Bigquery in near-realtime!
+
+### 5. Query your data using Bigquery
 
 **example:**
 
