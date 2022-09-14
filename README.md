@@ -1,7 +1,5 @@
 # gcp-reddit-streaming-datalake
 
-----
-
 ## Table Of Contents
 
 1. [Use Case](#use-case)
