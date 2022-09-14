@@ -103,6 +103,7 @@ The VM will take a minute or two to setup. Then comments will start to flow into
 
 ### Example of a Collected+Analyzed Reddit Comment:
 
+```json
 {
     "comment_id": "fx3wgci",
     "subreddit": "Fitness",
@@ -129,3 +130,4 @@ The VM will take a minute or two to setup. Then comments will start to flow into
     "comment_month": 7,
     "comment_day": 6
 }
+```
