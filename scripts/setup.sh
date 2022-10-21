@@ -46,7 +46,7 @@ echo " Reddit User: ${redditUser}"
 
 
 # GCP
-export APP_BUCKET=gs://${projectId}-reddit-stream-app
+export APP_BUCKET=${projectId}-reddit-stream-app
 
 # reddit
 echo "Please enter reddit client secret:"
@@ -71,7 +71,7 @@ gcloud services enable pubsub.googleapis.com
 echo "===================================================="
 echo " Make GCS bucket ..."
 
-gsutil mb -c standard -l $region $APP_BUCKET
+gsutil mb -c standard -l $region gs://$APP_BUCKET
 
 echo "===================================================="
 echo " Setting external IP access ..."
