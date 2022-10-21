@@ -36,6 +36,15 @@ while getopts ":i:r:c:u:" opt; do
     esac
 done
 
+
+echo "===================================================="
+echo " Inputs ..."
+echo " Project ID: ${projectId}" 
+echo " Region: ${region}" 
+echo " Reddit Client Id: ${redditClientId}"
+echo " Reddit User: ${redditUser}" 
+
+
 # GCP
 export SERVICE_BUCKET=gs://${projectId}-services
 

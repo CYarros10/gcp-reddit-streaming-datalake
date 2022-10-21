@@ -1,8 +1,8 @@
 # gcp variables
 project_id          = "%%PROJECT_ID%%"
 pubsub_topic_name   = "reddit_data_capture"
-bq_dataset_name     = "reddit"
-bq_table_name       = "comments_raw"
+bq_dataset_name     = "reddit_stream"
+bq_table_name       = "comments_stream"
 service_account_name = "reddit-vm"
 
 #reddit variables
