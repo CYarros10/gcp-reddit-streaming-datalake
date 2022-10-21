@@ -69,11 +69,6 @@ gcloud services enable dataflow.googleapis.com
 gcloud services enable pubsub.googleapis.com
 
 echo "===================================================="
-echo " Make GCS bucket ..."
-
-gsutil mb -c standard -l $region gs://$APP_BUCKET
-
-echo "===================================================="
 echo " Setting external IP access ..."
 
 echo "{
