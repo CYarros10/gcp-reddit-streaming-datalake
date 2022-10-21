@@ -1,16 +1,48 @@
+#!/bin/bash
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Run in Cloud Shell to set up your project and deploy solution.
+
 echo "===================================================="
 echo " Setting up environment variables ..."
 
+usage() {
+    echo "Usage: [ -i projectId ] [ -r region ] [ -c redditClientId ] [ -u redditUser ]"
+}
+export -f usage
+
+while getopts ":i:r:" opt; do
+    case $opt in
+        i ) projectId="$OPTARG";;
+        r ) region="$OPTARG";;
+        \?) echo "Invalid option -$OPTARG"
+        usage
+        exit 1
+        ;;
+    esac
+done
+
 # GCP
-export PROJECT_ID=""
-export REGION=""
-export SERVICE_BUCKET=gs://${PROJECT_ID}-${REGION}-services
+export SERVICE_BUCKET=gs://${PROJECT_ID}-services
+
 
 # reddit
-export REDDIT_CLIENT_ID=""
-export REDDIT_CLIENT_SECRET=""
-export REDDIT_USERNAME=""
-export REDDIT_PASSWORD=""
+echo "Please enter reddit client secret:"
+read -s REDDIT_CLIENT_SECRET
+echo "Please enter reddit password:"
+read -s REDDIT_PASSWORD
 
 echo "===================================================="
 echo " Enabling services ..."
@@ -43,7 +75,7 @@ echo "{
 
 gcloud resource-manager org-policies set-policy external_ip_policy.json --project=$PROJECT_ID
 
-cd terraform
+cd terraform || exit
 
 # edit the variables.tf
 sed -i "s|%%PROJECT_ID%%|$PROJECT_ID|g" sample.tfvars
