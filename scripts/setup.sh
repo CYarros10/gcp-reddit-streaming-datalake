@@ -27,6 +27,8 @@ while getopts ":i:r:" opt; do
     case $opt in
         i ) projectId="$OPTARG";;
         r ) region="$OPTARG";;
+		c ) redditClientId="$OPTARG";;
+		u ) redditUser="$OPTARG";;
         \?) echo "Invalid option -$OPTARG"
         usage
         exit 1
