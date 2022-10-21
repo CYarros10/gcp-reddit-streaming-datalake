@@ -23,7 +23,7 @@ usage() {
 }
 export -f usage
 
-while getopts ":i:r:" opt; do
+while getopts ":i:r:c:u:" opt; do
     case $opt in
         i ) projectId="$OPTARG";;
         r ) region="$OPTARG";;
@@ -37,7 +37,7 @@ while getopts ":i:r:" opt; do
 done
 
 # GCP
-export SERVICE_BUCKET=gs://${PROJECT_ID}-services
+export SERVICE_BUCKET=gs://${projectId}-services
 
 
 # reddit
@@ -49,7 +49,7 @@ read -s REDDIT_PASSWORD
 echo "===================================================="
 echo " Enabling services ..."
 
-gcloud config set project $PROJECT_ID
+gcloud config set project $projectId
 
 gcloud services enable storage-component.googleapis.com 
 gcloud services enable compute.googleapis.com  
@@ -63,7 +63,7 @@ gcloud services enable pubsub.googleapis.com
 echo "===================================================="
 echo " Make GCS bucket ..."
 
-gsutil mb -c standard -l $REGION $SERVICE_BUCKET
+gsutil mb -c standard -l $region $SERVICE_BUCKET
 
 echo "===================================================="
 echo " Setting external IP access ..."
@@ -75,15 +75,15 @@ echo "{
 	  }
 }" > external_ip_policy.json
 
-gcloud resource-manager org-policies set-policy external_ip_policy.json --project=$PROJECT_ID
+gcloud resource-manager org-policies set-policy external_ip_policy.json --project=$projectId
 
 cd terraform || exit
 
 # edit the variables.tf
-sed -i "s|%%PROJECT_ID%%|$PROJECT_ID|g" sample.tfvars
-sed -i "s|%%REDDIT_CLIENT_ID%%|$REDDIT_CLIENT_ID|g" sample.tfvars
+sed -i "s|%%PROJECT_ID%%|$projectId|g" sample.tfvars
+sed -i "s|%%REDDIT_CLIENT_ID%%|$redditClientId|g" sample.tfvars
 sed -i "s|%%REDDIT_CLIENT_SECRET%%|$REDDIT_CLIENT_SECRET|g" sample.tfvars
-sed -i "s|%%REDDIT_USERNAME%%|$REDDIT_USERNAME|g" sample.tfvars
+sed -i "s|%%REDDIT_USERNAME%%|$redditUser|g" sample.tfvars
 sed -i "s|%%REDDIT_PASSWORD%%|$REDDIT_PASSWORD|g" sample.tfvars
 
 terraform init
