@@ -46,8 +46,7 @@ echo " Reddit User: ${redditUser}"
 
 
 # GCP
-export SERVICE_BUCKET=gs://${projectId}-services
-
+export APP_BUCKET=gs://${projectId}-reddit-stream-app
 
 # reddit
 echo "Please enter reddit client secret:"
@@ -72,7 +71,7 @@ gcloud services enable pubsub.googleapis.com
 echo "===================================================="
 echo " Make GCS bucket ..."
 
-gsutil mb -c standard -l $region $SERVICE_BUCKET
+gsutil mb -c standard -l $region $APP_BUCKET
 
 echo "===================================================="
 echo " Setting external IP access ..."
@@ -90,6 +89,7 @@ cd terraform || exit
 
 # edit the variables.tf
 sed -i "s|%%PROJECT_ID%%|$projectId|g" sample.tfvars
+sed -i "s|%%APP_BUCKET%%|$APP_BUCKET|g" sample.tfvars
 sed -i "s|%%REDDIT_CLIENT_ID%%|$redditClientId|g" sample.tfvars
 sed -i "s|%%REDDIT_CLIENT_SECRET%%|$REDDIT_CLIENT_SECRET|g" sample.tfvars
 sed -i "s|%%REDDIT_USERNAME%%|$redditUser|g" sample.tfvars

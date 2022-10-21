@@ -23,6 +23,11 @@ variable "reddit_password" {
   type    = string
 }
 
+variable "app_bucket" {
+  description = "GCS bucket for this app."
+  type    = string
+}
+
 variable "service_account_name" {
   description = "display name for reddit vm service account"
   type    = string

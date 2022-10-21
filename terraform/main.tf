@@ -264,8 +264,8 @@ EOF
 
 }
 
-resource "google_storage_bucket" "services_bucket" {
-    name          = "${var.project_id}-services"
+resource "google_storage_bucket" "app_bucket" {
+    name          = "${var.app_bucket}"
     location      = "US"
     force_destroy = true
 }
@@ -273,7 +273,7 @@ resource "google_storage_bucket" "services_bucket" {
 resource "google_dataflow_job" "pubsub_stream" {
     name = "ps-to-bq-${var.pubsub_topic_name}"
     template_gcs_path = "gs://dataflow-templates-us-central1/latest/PubSub_to_BigQuery"
-    temp_gcs_location = "gs://${google_storage_bucket.services_bucket.name}/dataflow/tmp"
+    temp_gcs_location = "gs://${google_storage_bucket.app_bucket.name}/dataflow/tmp"
     region = "us-central1"
     enable_streaming_engine = true
     parameters = {
